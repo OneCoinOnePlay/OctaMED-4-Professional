@@ -1,6 +1,6 @@
 # OctaMED 4 Professional — Keyboard shortcuts and Command Reference
 
-Keyboard shortcut reference for **OctaMED 4 Professional**, the legendary music tracker for the Commodore Amiga, written by **Teijo Kinnunen**.
+Keyboard shortcuts and Command Reference for **OctaMED 4 Professional**, the legendary music tracker for the Commodore Amiga, written by **Teijo Kinnunen**.
 
 Open [`index.html`](index.html) in any browser to read it.
 
