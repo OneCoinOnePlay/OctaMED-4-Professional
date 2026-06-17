@@ -5,6 +5,11 @@ the legendary music tracker for the Commodore Amiga, written by **Teijo Kinnunen
 
 Open [`index.html`](index.html) in any browser to read it.
 
+## Pages
+
+- [`index.html`](index.html) — guide and complete keyboard-shortcut reference
+- [`synthetic-sounds.html`](synthetic-sounds.html) — synthetic &amp; hybrid sound commands (Volume and Waveform Sequence Lists), with examples
+
 ## What is OctaMED?
 
 **OctaMED** grew out of *MED* — the *Music EDitor* — and takes its name from *octa* (eight):
@@ -35,9 +40,33 @@ musicians a studio in 512K of RAM. Thanks to **RBF Software** and **Ray Burt-Fro
 to the **Amiga crews, the demoscene, the swappers, the trackers and the chip-tune composers**
 who kept the music playing. The scene never stopped. Keep tracking. ✊
 
+## OctaMED Professional — original credits
+
+| Person | Role |
+| --- | --- |
+| Teijo Kinnunen | Programming, design and graphics |
+| Ray Burt-Frost | Ideas, support and continual suggestions |
+| Larry McIntire | The manual |
+| Marcus Pol | Intro graphics |
+| Izrael Simila | OctaMED and Player icons |
+| Frederic Bouquerel | Title-bar OctaMED-Pro logo |
+| Steve Hayes | Electronic Arts IFF loader (Fish disk #64) |
+| Commodore | For a great electronic masterpiece — the Amiga |
+
+Amiga is © Commodore-Amiga Inc. Credits as published in the original OctaMED Professional manual.
+
+## Sources & credits
+
+This manual was compiled and formatted by **Todd Gill**, 17 Nov 2011, from source documents at
+<http://cd.textfiles.com/zoom2/info/guides/octamed4manual/> — link provided by **Amiga Junglism**
+on [amiga.org](http://www.amiga.org/forums/showpost.php?p=639429&postcount=9). The text has been
+restyled and republished here by **OneCoinOnePlay** as a clean, mobile-friendly reference; full
+respect to everyone in that chain.
+
 ## License & attribution
 
 This is an unofficial, fan-made reference offered in tribute. OctaMED © Teijo Kinnunen /
 RBF Software. No affiliation or endorsement is implied; all trademarks belong to their
-respective owners. The guide text and HTML in this repository are released under the MIT
-License (see [`LICENSE`](LICENSE)).
+respective owners. The HTML/CSS styling in this repository is released under the MIT
+License (see [`LICENSE`](LICENSE)); the underlying manual text remains the work of its
+original authors, credited above.

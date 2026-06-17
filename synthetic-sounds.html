@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OctaMED 4 Professional — Synthetic &amp; Hybrid Sound Commands</title>
+<meta name="description" content="Reference for OctaMED 4 Professional synthetic and hybrid sounds: the Volume Sequence List and Waveform Sequence List commands, with examples.">
+<style>
+  :root {
+    --color-text-primary: #1a1a18;
+    --color-text-secondary: #4a4a46;
+    --color-text-tertiary: #7a7a74;
+    --color-accent: #8a5a00;
+    --color-background-secondary: #f1efe8;
+    --color-background-tint: #faf8f1;
+    --color-border-primary: rgba(0,0,0,0.4);
+    --color-border-tertiary: rgba(0,0,0,0.15);
+    --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-text-primary: #e8e6de;
+      --color-text-secondary: #a8a69e;
+      --color-text-tertiary: #6e6c66;
+      --color-accent: #e0b25a;
+      --color-background-secondary: #2c2c2a;
+      --color-background-tint: #232321;
+      --color-border-primary: rgba(255,255,255,0.4);
+      --color-border-tertiary: rgba(255,255,255,0.15);
+    }
+    body { background: #1a1a18; }
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--color-text-secondary);
+    background: #fff;
+    padding: 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  @media (prefers-color-scheme: dark) { body { background: #1a1a18; } }
+
+  header { margin-bottom: 1.6rem; }
+  h1 { font-size: 20px; font-weight: 600; color: var(--color-text-primary); letter-spacing: -0.01em; }
+  .subtitle { font-size: 13px; color: var(--color-text-tertiary); margin-top: 4px; }
+  .lead { margin-top: 0.9rem; font-size: 13.5px; color: var(--color-text-secondary); max-width: 62ch; }
+  .lead + .lead { margin-top: 0.6rem; }
+  h2.sr-only { position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap }
+
+  .nav { font-size: 12px; margin-top: 0.9rem; }
+  .nav a { color: var(--color-accent); text-decoration: none; }
+  .nav a:hover { text-decoration: underline; }
+
+  .section { margin-bottom: 1.8rem; }
+  .section-title {
+    font-size: 14px; font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 8px; padding-bottom: 4px;
+    border-bottom: 1px solid var(--color-border-tertiary);
+  }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 0.4rem; }
+  th {
+    text-align: left; font-size: 10.5px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--color-text-tertiary);
+    padding: 3px 6px; border-bottom: 1px solid var(--color-border-tertiary);
+  }
+  td { padding: 3px 6px; vertical-align: top; color: var(--color-text-secondary); }
+  td.fn { color: var(--color-text-primary); }
+  td.num { color: var(--color-text-tertiary); width: 28px; text-align: right; white-space: nowrap; }
+  tr:hover td { background: var(--color-background-secondary); }
+  kbd {
+    display: inline-block;
+    background: var(--color-background-secondary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+  .muted { color: var(--color-text-tertiary); }
+
+  .cmd { margin-top: 1.1rem; }
+  .cmd-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 3px; }
+  .cmd-name { font-size: 13px; font-weight: 600; color: var(--color-text-primary); }
+  .cmd-meta { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .cmd p { max-width: 64ch; }
+  .ex {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    background: var(--color-background-tint);
+    border: 1px solid var(--color-border-tertiary);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 5px;
+    padding: 8px 10px;
+    margin-top: 6px;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .ex .c { color: var(--color-text-tertiary); }
+
+  .req {
+    display: inline-block;
+    font-size: 10px; font-weight: 600;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: 4px;
+    padding: 0 5px;
+    vertical-align: middle;
+  }
+  .callout {
+    margin-top: 0.6rem;
+    font-size: 11.5px;
+    color: var(--color-text-tertiary);
+    background: var(--color-background-tint);
+    border: 1px solid var(--color-border-tertiary);
+    border-radius: 5px;
+    padding: 8px 10px;
+    max-width: 64ch;
+  }
+
+  footer {
+    margin-top: 1.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--color-border-tertiary);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+  }
+  footer a { color: var(--color-text-tertiary); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Synthetic &amp; Hybrid Sound Commands</h1>
+  <div class="subtitle">OctaMED 4 Professional — programmable waveform &amp; volume sequences</div>
+
+  <p class="lead">
+    A <strong>synthetic sound</strong> is built from raw waveforms driven by two small programs that
+    run on every timing pulse: the <strong>Waveform Sequence List</strong> (which controls pitch,
+    waveform selection, arpeggio and vibrato) and the <strong>Volume Sequence List</strong> (which
+    controls volume and envelopes). A <strong>hybrid sound</strong> pairs an ordinary sample with the
+    same programmable lists, so a recorded sound can be animated by the synth engine.
+  </p>
+  <p class="lead">
+    Each list is a numbered set of lines. A line is either a <em>value</em> (a bare number — a volume
+    or waveform), or a three-letter <em>command</em> optionally followed by an <em>argument</em> on the
+    next line. Values are hexadecimal. The tables below are the full command set; the sections that
+    follow explain each one with the original examples.
+  </p>
+
+  <nav class="nav">← <a href="index.html">Guide &amp; keyboard shortcuts</a></nav>
+</header>
+
+<h2 class="sr-only">OctaMED synthetic and hybrid sound command reference</h2>
+
+<div class="section">
+  <div class="section-title">Volume Sequence List — commands</div>
+  <table>
+    <thead><tr><th>#</th><th>Function</th><th>Cmd</th><th>Argument</th><th>Key</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="fn">Set volume</td><td class="muted">—</td><td>volume</td><td class="muted">(number)</td></tr>
+      <tr><td class="num">2</td><td class="fn">End sequence</td><td><kbd>END</kbd></td><td class="muted">—</td><td class="muted">—</td></tr>
+      <tr><td class="num">3</td><td class="fn">Volume change down speed</td><td><kbd>CHD</kbd></td><td>speed</td><td><kbd>D</kbd></td></tr>
+      <tr><td class="num">4</td><td class="fn">Volume change up speed</td><td><kbd>CHU</kbd></td><td>speed</td><td><kbd>U</kbd></td></tr>
+      <tr><td class="num">5</td><td class="fn">Wait</td><td><kbd>WAI</kbd></td><td>pulses</td><td><kbd>W</kbd></td></tr>
+      <tr><td class="num">6</td><td class="fn">Jump</td><td><kbd>JMP</kbd></td><td>line #</td><td><kbd>J</kbd></td></tr>
+      <tr><td class="num">7</td><td class="fn">Jump Waveform Sequence</td><td><kbd>JWS</kbd></td><td>line #</td><td><kbd>Shift-J</kbd></td></tr>
+      <tr><td class="num">8</td><td class="fn">Halt</td><td><kbd>HLT</kbd></td><td class="muted">—</td><td><kbd>H</kbd></td></tr>
+      <tr><td class="num">9</td><td class="fn">Set speed</td><td><kbd>SPD</kbd></td><td>speed</td><td><kbd>S</kbd></td></tr>
+      <tr><td class="num">10</td><td class="fn">One-shot envelope</td><td><kbd>EN1</kbd></td><td>envelope #</td><td><kbd>E</kbd></td></tr>
+      <tr><td class="num">11</td><td class="fn">Looping envelope</td><td><kbd>EN2</kbd></td><td>envelope #</td><td><kbd>Shift-E</kbd></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-title">Waveform Sequence List — commands</div>
+  <table>
+    <thead><tr><th>#</th><th>Function</th><th>Cmd</th><th>Argument</th><th>Key</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="fn">Set waveform</td><td class="muted">—</td><td>number</td><td class="muted">(number)</td></tr>
+      <tr><td class="num">2</td><td class="fn">End sequence</td><td><kbd>END</kbd></td><td class="muted">—</td><td class="muted">—</td></tr>
+      <tr><td class="num">3</td><td class="fn">Pitch change down speed</td><td><kbd>CHD</kbd></td><td>speed</td><td><kbd>D</kbd></td></tr>
+      <tr><td class="num">4</td><td class="fn">Pitch change up speed</td><td><kbd>CHU</kbd></td><td>speed</td><td><kbd>U</kbd></td></tr>
+      <tr><td class="num">5</td><td class="fn">Wait</td><td><kbd>WAI</kbd></td><td>pulses</td><td><kbd>W</kbd></td></tr>
+      <tr><td class="num">6</td><td class="fn">Jump</td><td><kbd>JMP</kbd></td><td>line #</td><td><kbd>J</kbd></td></tr>
+      <tr><td class="num">7</td><td class="fn">Jump Volume Sequence</td><td><kbd>JVS</kbd></td><td>line #</td><td><kbd>Shift-J</kbd></td></tr>
+      <tr><td class="num">8</td><td class="fn">Halt</td><td><kbd>HLT</kbd></td><td class="muted">—</td><td><kbd>H</kbd></td></tr>
+      <tr><td class="num">9</td><td class="fn">Set speed</td><td><kbd>SPD</kbd></td><td>speed</td><td><kbd>S</kbd></td></tr>
+      <tr><td class="num">10</td><td class="fn">Arpeggio begin definition</td><td><kbd>ARP</kbd></td><td>offset</td><td><kbd>A</kbd></td></tr>
+      <tr><td class="num">11</td><td class="fn">Arpeggio end definition</td><td><kbd>ARE</kbd></td><td class="muted">—</td><td><kbd>E</kbd></td></tr>
+      <tr><td class="num">12</td><td class="fn">Set vibrato depth</td><td><kbd>VBD</kbd></td><td>depth</td><td><kbd>V</kbd></td></tr>
+      <tr><td class="num">13</td><td class="fn">Set vibrato speed</td><td><kbd>VBS</kbd></td><td>speed</td><td><kbd>Shift-V</kbd></td></tr>
+      <tr><td class="num">14</td><td class="fn">Reset pitch</td><td><kbd>RES</kbd></td><td class="muted">—</td><td><kbd>R</kbd></td></tr>
+      <tr><td class="num">15</td><td class="fn">Set vibrato waveform</td><td><kbd>VWF</kbd></td><td>number</td><td><kbd>Shift-W</kbd></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-title">Volume Sequence List — commands in detail</div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Set volume</span><span class="cmd-meta">cmd: — · arg: volume · key: (direct number)</span></div>
+    <p>The default command — it has no keyword. It sets the absolute volume of the synthetic sound,
+    range <kbd>00</kbd>–<kbd>40</kbd>. Relative track volumes from the Volume panel cannot be used with
+    synthetic sounds.</p>
+<div class="ex">00 30   <span class="c">Volume = $30</span>
+01 10   <span class="c">Volume = $10</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">End sequence</span><span class="cmd-meta">cmd: END · arg: — · key: —</span></div>
+    <p>Terminates the Volume Sequence List and is always present. You cannot insert commands below it.</p>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Change Down (volume)</span><span class="cmd-meta">cmd: CHD · arg: speed · key: D</span></div>
+    <p>Sets the speed at which the volume decreases on each timing pulse. The slide starts after the
+    command. To stop it, issue the command again with speed <kbd>00</kbd>.</p>
+<div class="ex">00 CHD  <span class="c">Change Down</span>
+01 05   <span class="c">speed = 5</span>
+ ⋮
+10 CHD  <span class="c">Change Down</span>
+11 00   <span class="c">speed = 0 → stop sliding</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Change Up (volume)</span><span class="cmd-meta">cmd: CHU · arg: speed · key: U</span></div>
+    <p>As <kbd>CHD</kbd>, but slides the volume up.</p>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Wait</span><span class="cmd-meta">cmd: WAI · arg: pulses · key: W</span></div>
+    <p>Pauses for the specified number of timing pulses.</p>
+<div class="ex">03 WAI  <span class="c">Wait</span>
+04 10   <span class="c">wait 16 ($10) pulses</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Jump</span><span class="cmd-meta">cmd: JMP · arg: line # · key: J</span></div>
+    <p>Goes to another position in the Volume Sequence List.</p>
+<div class="ex">05 JMP  <span class="c">Jump</span>
+06 0A   <span class="c">jump to line 0A</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Jump Waveform Sequence</span><span class="cmd-meta">cmd: JWS · arg: line # · key: Shift-J</span></div>
+    <p>Causes a jump in the <em>Waveform</em> Sequence — for example to trigger a pitch change at the end
+    of the Volume Sequence List. It does not jump within the Volume Sequence.</p>
+<div class="ex">04 JWS  <span class="c">Jump Waveform Sequence</span>
+05 0F   <span class="c">jump to waveform sequence 0F</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Halt</span><span class="cmd-meta">cmd: HLT · arg: — · key: H</span></div>
+    <p>Same effect as <kbd>END</kbd>, but it can sit in the middle of a sequence list (the code below it
+    can still be reached with <kbd>JMP</kbd>).</p>
+<div class="ex">03 HLT  <span class="c">Halt</span>
+04 0…   <span class="c">other code, reachable via JMP</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Speed</span><span class="cmd-meta">cmd: SPD · arg: speed · key: S</span></div>
+    <p>Sets the execution speed.</p>
+<div class="ex">0A SPD  <span class="c">Speed</span>
+0B 01   <span class="c">speed = 1 (fastest)</span></div>
+  </div>
+
+  <div class="callout"><span class="req">V2.00+</span> The following commands require OctaMED V2.00 (MED V3.20) or later.</div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">One-shot Envelope</span><span class="cmd-meta">cmd: EN1 · arg: envelope waveform # · key: E</span></div>
+    <p>Sets the shape of the envelope. When the end of the envelope is reached, nothing further occurs.
+    The envelope waveform must always be 128 bytes long; execution begins on the next interrupt, so
+    the volume here is initialised to <kbd>40</kbd>.</p>
+<div class="ex">02 40
+03 EN1  <span class="c">Set Envelope</span>
+04 05   <span class="c">use waveform 05 as envelope</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Looping Envelope</span><span class="cmd-meta">cmd: EN2 · arg: envelope waveform # · key: Shift-E</span></div>
+    <p>As <kbd>EN1</kbd>, except that on reaching the end the envelope loops back to the beginning.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Waveform Sequence List — commands in detail</div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Set Waveform</span><span class="cmd-meta">cmd: — · arg: waveform # · key: (direct number)</span></div>
+    <p>Selects the waveform number (from <kbd>00</kbd>). After this instruction execution stops until the
+    next timing pulse. Do not use waveform numbers higher than the last waveform.</p>
+<div class="ex">00 00   <span class="c">waveform 00</span>
+01 01   <span class="c">waveform 01</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">End sequence</span><span class="cmd-meta">cmd: END · arg: — · key: —</span></div>
+    <p>Terminates the Waveform Sequence List and is always present. You cannot insert commands below it.</p>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Change Down (pitch)</span><span class="cmd-meta">cmd: CHD · arg: speed · key: D</span></div>
+    <p>Sets the speed for sliding the pitch down. The slide starts after the command and stops when the
+    speed is set to zero.</p>
+<div class="ex">00 CHD  <span class="c">Change Down</span>
+01 03   <span class="c">speed = 3</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Change Up (pitch)</span><span class="cmd-meta">cmd: CHU · arg: speed · key: U</span></div>
+    <p>As <kbd>CHD</kbd>, but slides the pitch up.</p>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Wait</span><span class="cmd-meta">cmd: WAI · arg: pulses · key: W</span></div>
+    <p>Pauses for the number of pulses specified.</p>
+<div class="ex">03 WAI  <span class="c">Wait</span>
+04 02   <span class="c">wait 2 pulses</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Jump</span><span class="cmd-meta">cmd: JMP · arg: line # · key: J</span></div>
+    <p>Jumps to another position in the Waveform Sequence List.</p>
+<div class="ex">05 JMP  <span class="c">Jump</span>
+06 0A   <span class="c">go to line 0A</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Jump Volume Sequence</span><span class="cmd-meta">cmd: JVS · arg: line # · key: Shift-J</span></div>
+    <p>Causes a jump in the <em>Volume</em> Sequence — for example to trigger volume changes after waveform
+    events.</p>
+<div class="ex">09 JVS  <span class="c">Jump</span>
+0A 00   <span class="c">go to volume sequence 00</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Halt</span><span class="cmd-meta">cmd: HLT · arg: — · key: H</span></div>
+    <p>Same effect as <kbd>END</kbd>, but it can sit in the middle of the sequence list.</p>
+<div class="ex">03 HLT  <span class="c">Halt</span>
+04 0…   <span class="c">other code</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Speed</span><span class="cmd-meta">cmd: SPD · arg: speed · key: S</span></div>
+    <p>Sets the execution speed in pulses.</p>
+<div class="ex">0A SPD  <span class="c">Set Speed</span>
+0B 01   <span class="c">speed = 1 (fastest)</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Arpeggio Definition</span><span class="cmd-meta">cmd: ARP · arg: offset · key: A</span></div>
+    <p>Begins an arpeggio definition. The values that follow are the arpeggio offsets from the root note;
+    the definition ends with <kbd>ARE</kbd>. The arpeggio starts once the sequence is defined.</p>
+<div class="ex">03 ARP  <span class="c">Start Arpeggio</span>
+04 00   <span class="c">offset</span>
+05 04   <span class="c">offset</span>
+06 07   <span class="c">offset</span>
+08 ARE  <span class="c">End Definition</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Arpeggio End</span><span class="cmd-meta">cmd: ARE · arg: — · key: E</span></div>
+    <p>Ends an arpeggio definition (see above).</p>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Vibrato Depth</span><span class="cmd-meta">cmd: VBD · arg: depth · key: V</span></div>
+    <p>Sets the vibrato depth (<kbd>00</kbd>–<kbd>7F</kbd>). Values below <kbd>0F</kbd> suit ordinary
+    vibrato; higher values are mainly for special effects.</p>
+<div class="ex">02 VBD  <span class="c">Set Vibrato Depth</span>
+03 04   <span class="c">depth = 4</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Vibrato Speed</span><span class="cmd-meta">cmd: VBS · arg: speed · key: Shift-V</span></div>
+    <p>Sets the vibrato speed (<kbd>00</kbd>–<kbd>7F</kbd>). Both speed and depth must be non-zero for
+    vibrato to work.</p>
+<div class="ex">02 VBD  <span class="c">Set Vibrato Depth</span>
+03 04   <span class="c">depth = 4</span>
+04 VBS  <span class="c">Set Vibrato Speed</span>
+05 30   <span class="c">speed = 30</span></div>
+  </div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Reset Pitch</span><span class="cmd-meta">cmd: RES · arg: — · key: R</span></div>
+    <p>Resets the note to its initial pitch.</p>
+  </div>
+
+  <div class="callout"><span class="req">V2.00+</span> The following command requires OctaMED V2.00 (MED V3.20) or later.</div>
+
+  <div class="cmd">
+    <div class="cmd-head"><span class="cmd-name">Vibrato Waveform</span><span class="cmd-meta">cmd: VWF · arg: waveform # · key: Shift-W</span></div>
+    <p>Sets the vibrato waveform, which should always be 32 bytes long. It is played reversed (use the
+    <kbd>REV</kbd> button to reverse it). A sine wave is used by default.</p>
+<div class="ex">00 VBD  <span class="c">Set Vibrato Depth</span>
+01 06   <span class="c">depth = 6</span>
+02 VBS  <span class="c">Set Vibrato Speed</span>
+03 40   <span class="c">speed = 40</span>
+04 VWF  <span class="c">Set Vibrato Waveform</span>
+05 04   <span class="c">use waveform 04</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Synthetic sound commands in songs</div>
+  <p>If used as a MIDI command in a song, <kbd>E</kbd> controls MIDI pan. With synthetic sounds, however,
+  <kbd>E</kbd> triggers a jump in the Waveform Sequence List. For example, to drop the pitch of a sound at
+  a chosen point, the Waveform Sequence might read:</p>
+<div class="ex">00 VBS  <span class="c">Set Vibrato Speed</span>
+01 40   <span class="c">speed = 40</span>
+02 VBD  <span class="c">Set Vibrato Depth</span>
+03 06   <span class="c">depth = 6</span>
+04 00   <span class="c">Play Waveform 00</span>
+05 HLT  <span class="c">Halt</span>
+06 CHD  <span class="c">pitch-changing entry point</span>
+07 02   <span class="c">speed = 2</span>
+08 END  <span class="c">End</span></div>
+  <p>You could then compose a track like this:</p>
+<div class="ex">011 | C-2 30000   <span class="c">the previous synthetic sound</span>
+013 | --- 00000
+014 | --- 00000
+015 | --- 00E06   <span class="c">jump to position 06 → pitch slides down</span>
+016 | --- 00000
+017 | …</div>
+</div>
+
+<div class="section">
+  <div class="section-title">Hold and Decay in synthetic sounds</div>
+  <p>Hold and Decay work well with synthetic sounds. The decay value here is a jump address in the
+  Volume Sequence List: when decay starts, execution jumps to that line. It can also reach the Waveform
+  Sequence List via the <kbd>JWS</kbd> command.</p>
+<div class="ex">00 40   <span class="c">Initialise volume</span>
+01 HLT  <span class="c">Halt</span>
+02 CHD  <span class="c">decay handling (entry point) → cause decay</span>
+03 03   <span class="c">speed = 3</span>
+04 END  <span class="c">End</span></div>
+  <p class="muted" style="margin-top:6px">The decay value for this synthetic sound should be <kbd>2</kbd>.</p>
+</div>
+
+<footer>
+  <p>This manual was compiled and formatted by <strong>Todd Gill</strong>, 17 Nov 2011, from source
+  documents at
+  <a href="http://cd.textfiles.com/zoom2/info/guides/octamed4manual/">cd.textfiles.com/zoom2/info/guides/octamed4manual/</a>
+  — link provided by <strong>Amiga Junglism</strong> on
+  <a href="http://www.amiga.org/forums/showpost.php?p=639429&amp;postcount=9">amiga.org</a>.
+  Restyled and republished by
+  <a href="https://github.com/OneCoinOnePlay">OneCoinOnePlay</a>.</p>
+  <p style="margin-top:0.5rem">OctaMED © Teijo Kinnunen / RBF Software. Unofficial, fan-made reference offered in
+  tribute — no affiliation or endorsement is implied. All trademarks belong to their respective owners.</p>
+</footer>
+
+</body>
+</html>
