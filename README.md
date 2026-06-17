@@ -51,7 +51,6 @@ who kept the music playing. The scene never stopped. Keep tracking. ✊
 | Izrael Simila | OctaMED and Player icons |
 | Frederic Bouquerel | Title-bar OctaMED-Pro logo |
 | Steve Hayes | Electronic Arts IFF loader (Fish disk #64) |
-| Commodore | For a great electronic masterpiece — the Amiga |
 
 Amiga is © Commodore-Amiga Inc. Credits as published in the original OctaMED Professional manual.
 
@@ -62,8 +61,7 @@ This manual was compiled and formatted by **Todd Gill**, 17 Nov 2011. Source doc
 provided by **Amiga Junglism**. The text has been restyled and republished here by **OneCoinOnePlay**
 as a clean, mobile-friendly reference; full respect to everyone in that chain.
 
-Big shout-out to **Amiga Junglism** — crew — for surfacing this manual and keeping the knowledge in
-circulation. 🙌
+Big shout out to **Amiga Junglism** for keeping the knowledge in circulation. 🙌
 
 ## License & attribution
 
