@@ -57,11 +57,13 @@ Amiga is © Commodore-Amiga Inc. Credits as published in the original OctaMED Pr
 
 ## Sources & credits
 
-This manual was compiled and formatted by **Todd Gill**, 17 Nov 2011, from source documents at
-<http://cd.textfiles.com/zoom2/info/guides/octamed4manual/> — link provided by **Amiga Junglism**
-on [amiga.org](http://www.amiga.org/forums/showpost.php?p=639429&postcount=9). The text has been
-restyled and republished here by **OneCoinOnePlay** as a clean, mobile-friendly reference; full
-respect to everyone in that chain.
+This manual was compiled and formatted by **Todd Gill**, 17 Nov 2011. Source document via the
+[English Amiga Board](https://eab.abime.net/attachment.php?attachmentid=44493&d=1434664229), link
+provided by **Amiga Junglism**. The text has been restyled and republished here by **OneCoinOnePlay**
+as a clean, mobile-friendly reference; full respect to everyone in that chain.
+
+Big shout-out to **Amiga Junglism** — crew — for surfacing this manual and keeping the knowledge in
+circulation. 🙌
 
 ## License & attribution
 
